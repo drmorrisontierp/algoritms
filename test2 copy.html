@@ -1,0 +1,97 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Vanilla JS Droppable - Default functionality</title>
+    <style>
+        #draggable {
+            width: 100px;
+            height: 100px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px 10px 10px 0;
+            background-color: #f0f0f0;
+            cursor: move;
+        }
+        
+        .droppable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+            background-color: #ccc;
+        }
+        
+        .highlight {
+            background-color: #fffa90;
+        }
+        
+        #droppable:hover {
+            background-color: #fffa90;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var draggable = document.getElementById('draggable');
+            var droppable_1 = document.getElementById('droppable_1');
+            var droppable_2 = document.getElementById('droppable_2');
+
+
+
+            draggable.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData('text/plain', null);
+            });
+
+            droppable_1.addEventListener('dragover', function(e) {
+                droppable_1.classList.toggle('ui-widget-header');
+                console.log(droppable_1.classList)
+                e.preventDefault();
+            });
+
+            droppable_2.addEventListener('dragover', function(e) {
+                droppable_2.classList.toggle('ui-widget-header');
+                console.log(droppable_2.classList)
+                e.preventDefault();
+            });
+
+
+            droppable_1.addEventListener('drop', function(e) {
+                e.preventDefault();
+                droppable_1.classList.add('highlight');
+                console.log(draggable.id)
+                if (draggable.id == "d1") {
+                    droppable_1.querySelector('p').textContent = document.getElementById("draggable").textContent;
+                }
+            });
+
+            droppable_2.addEventListener('drop', function(e) {
+                e.preventDefault();
+                droppable_2.classList.add('highlight');
+                console.log(droppable_2.id)
+                if (draggable.id == "draggable") {
+                    droppable_2.querySelector('p').textContent = document.getElementById("draggable").textContent;
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="draggable" class="ui-widget-content" draggable="true">
+        <p>Drag me to my target</p>
+    </div>
+
+    <div id="droppable_1" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+
+    <div id="droppable_2" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+
+
+</body>
+
+</html>

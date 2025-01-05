@@ -1,0 +1,64 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Vanilla JS Droppable - Default functionality</title>
+    <style>
+        #draggable {
+            width: 100px;
+            height: 100px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px 10px 10px 0;
+            background-color: #f0f0f0;
+            cursor: move;
+        }
+        
+        #droppable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+            background-color: #ccc;
+        }
+        
+        .highlight {
+            background-color: #fffa90;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var draggable = document.getElementById('draggable');
+            var droppable = document.getElementById('droppable');
+
+            draggable.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData('text/plain', null);
+            });
+
+            droppable.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+
+            droppable.addEventListener('drop', function(e) {
+                e.preventDefault();
+                droppable.classList.add('highlight');
+                droppable.querySelector('p').textContent = 'Dropped!';
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="draggable" class="ui-widget-content" draggable="true">
+        <p>Drag me to my target</p>
+    </div>
+
+    <div id="droppable" class="ui-widget-header">
+        <p>Drop here</p>
+    </div>
+
+</body>
+
+</html>

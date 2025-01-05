@@ -1,0 +1,19 @@
+body {
+    background-color: blue;
+}
+
+#matrix {
+    display: grid;
+    grid-template-columns: 30px 5px 30px 5px 30px 5px 30px 5px 30px;
+    grid-template-rows: 30px 5px 30px 30px 5px 30px;
+    row-gap: 5px;
+}
+
+.box-one {
+    background-color: white;
+    border: solid black 1px;
+    min-width: 30px;
+    max-width: 30px;
+    min-height: 30px;
+    max-height: 30px;
+}

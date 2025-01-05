@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Vanilla JS Droppable - Default functionality</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <style>
+        #draggable {
+            width: 100px;
+            height: 100px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px 10px 10px 0;
+            cursor: move;
+        }
+        
+        #droppable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+            border: 2px solid #ccc;
+        }
+        
+        .ui-state-highlight {
+            background-color: #9ecb3c;
+            border: 2px dashed #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="droppable" class="ui-widget-header">
+        <p>Drop here</p>
+    </div>
+    <div id="draggable" class="ui-widget-content">
+        <p>Drag me to my target</p>
+    </div>
+
+
+
+    <script>
+        // Get references to the draggable and droppable elements
+        const draggable = document.getElementById('draggable');
+        const droppable = document.getElementById('droppable');
+
+        let isDragging = false;
+
+        // Make the element draggable
+        draggable.addEventListener('mousedown', function(event) {
+            isDragging = true;
+            const offsetX = event.clientX - draggable.getBoundingClientRect().left;
+            const offsetY = event.clientY - draggable.getBoundingClientRect().top;
+
+            // Mousemove to drag the element
+            function onMouseMove(e) {
+                if (isDragging) {
+                    draggable.style.position = 'absolute';
+                    draggable.style.left = `${e.clientX - offsetX}px`;
+                    draggable.style.top = `${e.clientY - offsetY}px`;
+                }
+            }
+
+            // Mouseup to stop dragging
+            function onMouseUp() {
+                isDragging = false;
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+
+            // Attach mousemove and mouseup events
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
+        // Handle dropping logic
+        droppable.addEventListener('dragover', function(event) {
+            event.preventDefault(); // Allow the drop by preventing the default action
+        });
+
+        droppable.addEventListener('drop', function(event) {
+            event.preventDefault();
+
+            // Check if the draggable element is over the droppable area
+            if (isDragging) {
+                droppable.classList.add('ui-state-highlight');
+                droppable.querySelector('p').innerHTML = 'Dropped!';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

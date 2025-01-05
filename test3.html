@@ -1,0 +1,119 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Droppable</title>
+    <style>
+        .draggable {
+            width: 100px;
+            height: 100px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px 10px 10px 0;
+            background-color: #f0f0f0;
+            cursor: move;
+        }
+        
+        .droppable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+            background-color: #ccc;
+        }
+        
+        .highlight {
+            background-color: #fffa90;
+        }
+        
+        #droppable:hover {
+            background-color: #fffa90;
+        }
+    </style>
+    <script>
+        const ids = ["dg1", "dg2", "dg3", "dg4", "dg5", "dg6", "do1", "do2", "do3", "do4", "do5", "do6"];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dict = {
+                dg1: document.getElementById('dg1'),
+                dg2: document.getElementById('dg2'),
+                dg3: document.getElementById('dg3'),
+                dg4: document.getElementById('dg4'),
+                dg5: document.getElementById('dg5'),
+                dg6: document.getElementById('dg6'),
+                do1: document.getElementById('do1'),
+                do2: document.getElementById('do2'),
+                do3: document.getElementById('do3'),
+                do4: document.getElementById('do4'),
+                do5: document.getElementById('do5'),
+                do6: document.getElementById('do6'),
+            };
+
+            for (let x = 0; x < 6; x++) {
+                dict[ids[x]].addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', ids[x]);
+                });
+            }
+
+            for (let x = 6; x < 12; x++) {
+                dict[ids[x]].addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                });
+
+                dict[ids[x]].addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    const draggedId = e.dataTransfer.getData('text/plain');
+                    if (draggedId.replace('dg', 'do') === ids[x]) {
+                        dict[ids[x]].classList.add('highlight');
+                        dict[ids[x]].querySelector('p').textContent = dict[draggedId].querySelector('p').textContent;
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="dg1" class="draggable ui-widget-content" draggable="true">
+        <p>1</p>
+    </div>
+    <div id="dg2" class="draggable ui-widget-content" draggable="true">
+        <p>2</p>
+    </div>
+    <div id="dg3" class="draggable ui-widget-content" draggable="true">
+        <p>3</p>
+    </div>
+    <div id="dg4" class="draggable ui-widget-content" draggable="true">
+        <p>4</p>
+    </div>
+    <div id="dg5" class="draggable ui-widget-content" draggable="true">
+        <p>5</p>
+    </div>
+    <div id="dg6" class="draggable ui-widget-content" draggable="true">
+        <p>6</p>
+    </div>
+
+    <div id="do1" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+    <div id="do2" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+    <div id="do3" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+    <div id="do4" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+    <div id="do5" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+    <div id="do6" class="droppable ui-widget-header highlight">
+        <p>Drop here</p>
+    </div>
+
+</body>
+
+</html>
