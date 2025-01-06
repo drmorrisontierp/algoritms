@@ -112,7 +112,6 @@ function checkNumbers(numbers) {
     number_two.pop()
   }
   if (parseFloat(number_one.join("")) == 0 || parseFloat(number_two.join("")) == 0) flag = false
-  //console.log(x, y, number_one, number_two, flag)
   return [x, y, [number_one, number_two], flag] 
 }
 
