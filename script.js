@@ -143,3 +143,6 @@ console.log(numberCheck)
 for (let x of test) {
   checkNumbers(x)
 }*/
+
+
+//check
