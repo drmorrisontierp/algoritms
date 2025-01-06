@@ -4,12 +4,21 @@ body {
 
 #matrix {
     display: grid;
-    grid-template-columns: 30px 5px 30px 5px 30px 5px 30px 5px 30px;
-    grid-template-rows: 30px 5px 30px 30px 5px 30px;
+    grid-template-columns: 50px 5px 50px 5px 50px 5px 50px 5px 50px;
+    grid-template-rows: 50px 5px 50px 50px 5px 50px;
     row-gap: 5px;
 }
 
 .box-one {
+    background-color: white;
+    border: solid black 1px;
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
+}
+
+.drag-box-one {
     background-color: white;
     border: solid black 1px;
     min-width: 30px;
