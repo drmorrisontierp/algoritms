@@ -56,14 +56,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   for (let x = 0; x < 12; x++) {
     dict[ids[x]].addEventListener('dragstart', function (e) {
-      console.log("dragging")
       e.dataTransfer.setData('text/plain', ids[x]);
     });
   }
 
   for (let x = 12; x < 24; x++) {
     dict[ids[x]].addEventListener('dragover', function (e) {
-      console.log("dragging")
       e.preventDefault();
     });
 
@@ -127,8 +125,6 @@ function checkNumbers(numbers) {
   let flag = true;
   let number_one = reduceNumbers(numbers[0]);
   let number_two = reduceNumbers(numbers[1]);
-  console.log(number_one)
-  console.log(number_two)
 
   if (parseFloat(number_one[1].join("")) == 0 || parseFloat(number_two[1].join("")) == 0) flag = false;
 
@@ -163,8 +159,6 @@ function checkNumbers(numbers) {
     }
   }
   
-  console.log(number_one)
-  console.log(number_two)
   return [number_one[1].concat(number_two[1]), flag];
 }
 
@@ -189,7 +183,6 @@ function placeNumbers(numbers) {
   for (let x = 6; x < 12; x++) {
     placings[`d${x + 14}`] = numbers[0][x]
   }
-  console.log(placings)
   return placings
 }
 
@@ -200,32 +193,25 @@ function writeNumbers(numbers) {
   });
 }
 
+function removeUnwanted(numbers) {
+  Object.keys(numbers)
+  .forEach(function eachKey(key) {
+    if (numbers[key] == "") {
+    document.getElementById(key).style.display = "none"
+    }
+  });
+}
+
+
 let numbers = generateAddition()
-//let numbers = [["0", "0", ".", "0"], ["0", ".", "0"]]
-//console.log(numbers)
 let numberCheck = checkNumbers(numbers)
-console.log(numberCheck)
 let flag = numberCheck[1]
 while (!flag) {
   numbers = generateAddition()
   numberCheck = checkNumbers(numbers)
   flag = numberCheck[1]
 }
-//console.log(numberCheck)
-writeNumbers(placeNumbers(numberCheck))
+numbers = placeNumbers(numberCheck)
+writeNumbers(numbers)
+removeUnwanted(numbers)
 
-/*const test = [
-  [["0", "0", ".", "0"], ["0", ".", "0"]],
-  [["0", "0", ".", "2"], ["5", ".", "0"]],
-  [["0", "4", ".", "2"], ["0", ".", "5"]],
-  [["6", "4", ".", "0"], ["0", ".", "5"]],
-  [["6", ".", "0", "0"], ["0", ".", "5"]],
-  [["6", "4", "0", "."], ["0", "5", "."]],
-]
-
-for (let x of test) {
-  checkNumbers(x)
-}*/
-
-
-//check
