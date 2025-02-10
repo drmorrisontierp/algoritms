@@ -127,6 +127,7 @@ function checkNumbers(numbers) {
   let number_two = reduceNumbers(numbers[1]);
 
   if (parseFloat(number_one[1].join("")) == 0 || parseFloat(number_two[1].join("")) == 0) flag = false;
+  let answer = parseFloat(number_one[1].join("")) + parseFloat(number_two[1].join(""))
 
   if (number_one[0] === number_two[0]) {
     while (number_one[1].length < 6) {
@@ -158,8 +159,10 @@ function checkNumbers(numbers) {
       number_one[1].unshift("");
     }
   }
-  
-  return [number_one[1].concat(number_two[1]), flag];
+
+  let fixed = number_one[0] > number_two[0] ? number_one[0] : number_two[0];
+  console.log(answer.toFixed(fixed))
+  return [number_one[1].concat(number_two[1]), flag, answer.toFixed(fixed)];
 }
 
 function placeNumbers(numbers) {
@@ -211,7 +214,77 @@ while (!flag) {
   numberCheck = checkNumbers(numbers)
   flag = numberCheck[1]
 }
+answer = numberCheck[2].toString().split("")
 numbers = placeNumbers(numberCheck)
 writeNumbers(numbers)
 removeUnwanted(numbers)
+console.log(numbers, answer)
+for (let x = 0; x < answer.length; x ++) {
+  console.log("test", `b3${6 - answer.length + x}`)
+  document.getElementById(`b3${6 - answer.length + x}`).dataValue = answer[x]
+}
+
+const kids = [
+  'n1',
+  'n2',
+  'n3',
+  'n4',
+  'n5',
+  'n6',
+  'n7',
+  'n8',
+  'n9',
+  'n.',
+  'n0',
+  'm10',
+  'b30',
+  'b31',
+  'b32',
+  'b33',
+  'b34',
+  'b35',
+];
+
+document.addEventListener('DOMContentLoaded', function () {
+  const kdict = {
+    n1: document.getElementById('n1'),
+    n2: document.getElementById('n2'),
+    n3: document.getElementById('n3'),
+    n4: document.getElementById('n4'),
+    n5: document.getElementById('n5'),
+    n6: document.getElementById('n6'),
+    n7: document.getElementById('n7'),
+    n8: document.getElementById('n8'),
+    n9: document.getElementById('n9'),
+    "n.": document.getElementById('n.'),
+    n0: document.getElementById('n0'),
+    m10: document.getElementById('m10'),
+    b30: document.getElementById('b30'),
+    b31: document.getElementById('b31'),
+    b32: document.getElementById('b32'),
+    b33: document.getElementById('b33'),
+    b34: document.getElementById('b34'),
+    b35: document.getElementById('b35'),
+  };
+
+  for (let x = 0; x < 11; x++) {
+    kdict[kids[x]].addEventListener('dragstart', function (e) {
+      e.dataTransfer.setData('text/plain', kids[x].replace("n", ""));
+    });
+  }
+
+  for (let x = 12; x < 18; x++) {
+    kdict[kids[x]].addEventListener('dragover', function (e) {
+      e.preventDefault();
+    });
+
+    kdict[kids[x]].addEventListener('drop', function (e) {
+      e.preventDefault();
+      const value = e.dataTransfer.getData('text/plain');
+      if (value === kdict[kids[x]].dataValue) {
+        kdict[kids[x]].querySelector('p').textContent = value;
+      }
+    });
+  }
+});
 

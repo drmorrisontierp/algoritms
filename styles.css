@@ -20,24 +20,28 @@ body {
     max-width: 50px;
     min-height: 50px;
     max-height: 50px;
+    
 }
 
 p {
     text-align: center;
+    font-size: 30px;
+    margin: 10px 0 0 0;
+    
 }
 
 .drag-box-one {
     background-color: white;
     border: solid black 1px;
-    min-width: 30px;
-    max-width: 30px;
-    min-height: 30px;
-    max-height: 30px;
+    min-width: 50px;
+    max-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
 }
 
 #question {
     display: grid;
-    grid-template-columns: 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px;
-    grid-template-rows: 30px;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px;
     column-gap: 5px;
 }
